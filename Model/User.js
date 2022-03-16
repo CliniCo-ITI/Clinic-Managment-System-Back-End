@@ -4,17 +4,18 @@ const userschema = new mongoose.Schema({
   password: { type: String, required: true },
   fname: { type: String, required: true },
   lname: { type: String, required: true },
+  image: { type: String, required: true },
   age: { type: Number, required: true },
-  phone_number: { type: String, required: true},
+  phoneNumber: { type: String, required: true},
   gender: { type: String, enum: ["M", "F"], default: "M" },
-  user_type: {
+  userType: {
     type: String,
-    enum: ["admin", "doctor", "patient", "receptionist"],
+    enum: ["admin", "doctor", "patient" , "receptionist" , "clinic-manager"],
   },
-  user_id:{type:Number,
+  userId:{type:Number,
     unique:true,
     ref:function(){
-        this.ref = this.user_type
+        this.ref = this.userType
     }
   }
 });
