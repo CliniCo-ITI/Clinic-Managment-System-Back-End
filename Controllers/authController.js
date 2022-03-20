@@ -3,7 +3,8 @@ const bcrypt = require("bcrypt");
 const User = require("../Model/User");
 const Doctor = require("../Model/Doctor");
 const Patient = require("../Model/Patient");
-
+const {jwt_secret} = require('./../config/secrets')
+const {userDto} = require('./../dto/user.dto')
 
 module.exports.signUp = (req,res)=>{
     const newUser = new User({
@@ -16,7 +17,6 @@ module.exports.signUp = (req,res)=>{
         phoneNumber: req.body.phoneNumber,
         gender: req.body.gender,
         userType: req.body.userType,
-
     });
     if(req.body.userType === "patient"){
         const newPatient = new Patient({
@@ -31,9 +31,18 @@ module.exports.signUp = (req,res)=>{
                 })
                 res.status(201).json({message: "patient added"});
             })
+    }else if(req.body.userType === "admin"){
+                newUser.save()
+                .then()
+                .catch(err=>{
+                    console.log(err);
+                })
+                res.status(201).json({message: "admin added"});
+            
     }//TO_DO add other types of USERS other than patient and who can register or will be added 
 
 }
+
 
 exports.signin = (req, res) => {
 User.findOne({
@@ -50,7 +59,7 @@ User.findOne({
     if (!user) {
         return res.status(404)
         .send({
-            message: "User Not found."
+            message: "Invalid Email or password."
         });
     }
 
@@ -64,24 +73,17 @@ User.findOne({
         return res.status(401)
         .send({
             accessToken: null,
-            message: "Invalid Password!"
+            message: "Invalid Email or Password!"
         });
     }
     //signing token with user id
-    var token = jwt.sign({
-        id: user._id
-    }, process.env.API_SECRET, {
-        expiresIn: 86400
-    });
+    const userData = userDto(user)
+    const token = jwt.sign(userData,jwt_secret)
 
     //responding to client request with user profile success message and  access token .
     res.status(200)
         .send({
-        user: {
-            id: user._id,
-            email: user.email,
-            fname: user.fname,
-        },
+        user: userDto(user),
         message: "Login successfully",
         accessToken: token,
         });

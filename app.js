@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const authRouter = require("./Routes/authRoute");
-
+const bodyParser = require("body-parser");
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
@@ -22,7 +22,8 @@ mongoose
     console.log("DB Connection Error!!!!");
   });
 
-
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({extended:false}));
   /**************Middlewares***** */
   app.use(authRouter);
   app.get("/", (req, res) => {
