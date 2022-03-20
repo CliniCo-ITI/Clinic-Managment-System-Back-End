@@ -1,9 +1,10 @@
-const {signUp, signin} = require("../Controllers/authController");
-const {verifyToken} = require("../middleware/authJWT");
-const express = require("express");
-const authRouter = express.Router();
-
-authRouter.post('/register',signUp);
+const {signUp, signin}  = require("../Controllers/authController");
+const {verifyToken}     = require("../middleware/authJWT");
+const express           = require("express");
+const authRouter        = express.Router();
+const multer            = require("multer");
+const upload            = require("../middleware/uploadImage");
+authRouter.post('/register',upload.single('image'),signUp);
 authRouter.post('/login',signin);
 authRouter.get("/patientPage", verifyToken, function (req, res) {
     if (!req.user) {

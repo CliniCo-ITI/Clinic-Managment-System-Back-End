@@ -1,8 +1,10 @@
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const User = require("../Model/User");
-const Doctor = require("../Model/Doctor");
-const Patient = require("../Model/Patient");
+const jwt               = require("jsonwebtoken");
+const bcrypt            = require("bcrypt");
+const User              = require("../Model/User");
+const Doctor            = require("../Model/Doctor");
+const Patient           = require("../Model/Patient");
+const upload            = require("../middleware/uploadImage");
+
 
 
 module.exports.signUp = (req,res)=>{
@@ -11,12 +13,11 @@ module.exports.signUp = (req,res)=>{
         lname: req.body.lname,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password,8),
-        image: req.body.image,
+        image: req.file.filename,
         age: req.body.age,
         phoneNumber: req.body.phoneNumber,
         gender: req.body.gender,
         userType: req.body.userType,
-
     });
     if(req.body.userType === "patient"){
         const newPatient = new Patient({
@@ -30,6 +31,8 @@ module.exports.signUp = (req,res)=>{
                     console.log(err);
                 })
                 res.status(201).json({message: "patient added"});
+            }).catch(err =>{
+                console.log(err);
             })
     }//TO_DO add other types of USERS other than patient and who can register or will be added 
 
