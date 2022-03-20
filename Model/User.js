@@ -7,7 +7,7 @@ const userschema = new mongoose.Schema({
           lowercase: true,
           unique: true },
   password: { type: String, required: true },
-  image: { type: String, required: true },
+  image: { type: String,required:true},
   age: { type: Number, required: true },
   phoneNumber: { type: String, required: true},
   gender: { type: String, enum: ["M", "F"], default: "M" },
@@ -15,6 +15,7 @@ const userschema = new mongoose.Schema({
     type: String,
     required: true,
     enum: ["admin", "doctor", "patient" , "receptionist" , "clinic-manager"],
+    default:'patient'
   },
   // userId:{
   //   type: mongoose.Schema.Types.ObjectId,

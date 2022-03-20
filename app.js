@@ -5,7 +5,6 @@ require("dotenv").config();
 const authRouter = require("./Routes/authRoute");
 const bodyParser = require("body-parser");
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 // Connect to Database (CMS)
@@ -23,7 +22,8 @@ mongoose
     console.log("DB Connection Error!!!!");
   });
 
-
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({extended:false}));
   /**************Middlewares***** */
   app.use('/uploads',express.static('uploads'));
   app.use(authRouter);
