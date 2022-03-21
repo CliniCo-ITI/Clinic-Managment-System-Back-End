@@ -3,8 +3,10 @@ const bcrypt = require("bcrypt");
 const User = require("../Model/User");
 const Doctor = require("../Model/Doctor");
 const Patient = require("../Model/Patient");
+const upload = require("../middleware/uploadImage");
 const {jwt_secret} = require('./../config/secrets')
 const {userDto} = require('./../dto/user.dto')
+
 
 module.exports.signUp = async (req,res)=>{
     const {email} = req.body;
@@ -17,7 +19,7 @@ module.exports.signUp = async (req,res)=>{
         lname: req.body.lname,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password,8),
-        image: req.body.image,
+        image: req.file.filename,
         age: req.body.age,
         phoneNumber: req.body.phoneNumber,
         gender: req.body.gender,
@@ -51,47 +53,39 @@ module.exports.signUp = async (req,res)=>{
 
 
 exports.signin = (req, res) => {
-User.findOne({
-    email: req.body.email
-    })
-    .exec((err, user) => {
+  User.findOne({
+    email: req.body.email,
+  }).exec((err, user) => {
     if (err) {
-        res.status(500)
-        .send({
-            message: err
-        });
-        return;
+      res.status(500).send({
+        message: err,
+      });
+      return;
     }
     if (!user) {
-        return res.status(404)
-        .send({
-            message: "Invalid Email or password."
-        });
+      return res.status(404).send({
+        message: "Invalid Email or password.",
+      });
     }
 
     //comparing passwords
-    let passwordIsValid = bcrypt.compareSync(
-        req.body.password,
-        user.password
-    );
+    let passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
     // checking if password was valid and send response accordingly
     if (!passwordIsValid) {
-        return res.status(401)
-        .send({
-            accessToken: null,
-            message: "Invalid Email or Password!"
-        });
+      return res.status(401).send({
+        accessToken: null,
+        message: "Invalid Email or Password!",
+      });
     }
     //signing token with user id
-    const userData = userDto(user)
-    const token = jwt.sign(userData,jwt_secret)
+    const userData = userDto(user);
+    const token = jwt.sign(userData, jwt_secret);
 
     //responding to client request with user profile success message and  access token .
-    res.status(200)
-        .send({
-        user: userDto(user),
-        message: "Login successfully",
-        accessToken: token,
-        });
+    res.status(200).send({
+      user: userDto(user),
+      message: "Login successfully",
+      accessToken: token,
     });
+  });
 };

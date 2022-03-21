@@ -1,4 +1,4 @@
-const {signUp, signin} = require("../Controllers/authController");
+const { signUp, signin } = require("../Controllers/authController");
 const express = require("express");
 const authRouter = express.Router();
 const {ValidateToken} = require('./../middleware/validation/validateToken')
@@ -6,9 +6,10 @@ const {IsPatient} = require('./../middleware/validation/isPation')
 const {IsAdmin} =require('./../middleware/validation/isAdmin')
 const {IsDoctor} = require('./../middleware/validation/isDoctor')
 const {IsReceptionist} = require('./../middleware/validation/isEmployee');
+const multer = require("multer");
+const upload = require("../middleware/uploadImage");
 
-
-authRouter.post('/register',signUp);
+authRouter.post("/register", upload.single("image"), signUp);
 authRouter.post('/login',signin);
 
 authRouter.get("/patien",ValidateToken,IsPatient,function (req, res) {
