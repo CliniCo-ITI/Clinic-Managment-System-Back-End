@@ -25,7 +25,12 @@ mongoose
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended:false}));
   /**************Middlewares***** */
+
   app.use(authRouter);
+  
+  
+  
+
   app.get("/", (req, res) => {
     res.json({ message: "Hello World" });
   });

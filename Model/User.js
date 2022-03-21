@@ -14,8 +14,8 @@ const userschema = new mongoose.Schema({
   userType: {
     type: String,
     required: true,
+    default:"patient",
     enum: ["admin", "doctor", "patient" , "receptionist" , "clinic-manager"],
-    default:'patient'
   },
   // userId:{
   //   type: mongoose.Schema.Types.ObjectId,

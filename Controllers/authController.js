@@ -6,7 +6,12 @@ const Patient = require("../Model/Patient");
 const {jwt_secret} = require('./../config/secrets')
 const {userDto} = require('./../dto/user.dto')
 
-module.exports.signUp = (req,res)=>{
+module.exports.signUp = async (req,res)=>{
+    const {email} = req.body;
+    const userExcist = await User.findOne({email});
+    if(userExcist){
+        return res.status(400).json({msg:'user already excist'});
+    }
     const newUser = new User({
         fname: req.body.fname,
         lname: req.body.lname,
@@ -18,6 +23,7 @@ module.exports.signUp = (req,res)=>{
         gender: req.body.gender,
         userType: req.body.userType,
     });
+    console.log(newUser.userType);
     if(req.body.userType === "patient"){
         const newPatient = new Patient({
             hasInsurance: req.body.hasInsurance,
@@ -31,7 +37,7 @@ module.exports.signUp = (req,res)=>{
                 })
                 res.status(201).json({message: "patient added"});
             })
-    }else if(req.body.userType === "admin"){
+     }else if (req.body.userType === "admin"){
                 newUser.save()
                 .then()
                 .catch(err=>{
