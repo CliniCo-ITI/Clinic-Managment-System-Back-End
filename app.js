@@ -5,6 +5,8 @@ require("dotenv").config();
 const authRouter = require("./Routes/authRoute");
 const recepAdminRouter = require("./Routes/adminreceptionistRouter");
 const recepRouter = require("./Routes/receptionistRouter");
+const adminDoctorRouter = require('./Routes/admindoctorRouter');
+const doctorRouter = require('./Routes/doctorRouter')
 const bodyParser = require("body-parser");
 
 app.use(bodyParser.json());
@@ -30,9 +32,14 @@ mongoose
   app.use('/uploads',express.static('uploads'));
   app.use(authRouter);
   //admin middlewares:
+  app.use('/admin',adminDoctorRouter)
   app.use('/admin/receptionist',recepAdminRouter);
-  //receptionist middlewares:
+  //receptionist middlewares:  
+  app.use(doctorRouter)
   app.use('/receptionist',recepRouter);
+
+  
+  
   
 
   app.get("/", (req, res) => {
