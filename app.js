@@ -3,6 +3,8 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const authRouter = require("./Routes/authRoute");
+const adminDoctorRouter = require('./Routes/admindoctorRouter');
+const doctorRouter = require('./Routes/doctorRouter')
 const bodyParser = require("body-parser");
 
 app.use(bodyParser.json());
@@ -27,6 +29,8 @@ mongoose
   /**************Middlewares***** */
   app.use('/uploads',express.static('uploads'));
   app.use(authRouter);
+  app.use('/admin',adminDoctorRouter)
+  app.use(doctorRouter)
   
   
   

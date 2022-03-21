@@ -47,13 +47,13 @@ authRouter.get("/patien",ValidateToken,IsPatient,function (req, res) {
     //     });
     // })    
 
-    authRouter.get("/admin/doctor", ValidateToken,IsAdmin, function (req, res) {
+    // authRouter.get("/admin/doctor", ValidateToken,IsAdmin, function (req, res) {
 
-        res.status(200)
-            .send({
-                message: "Congratulations! but there is no hidden content"
-        });
-    }) 
+    //     res.status(200)
+    //         .send({
+    //             message: "Congratulations! but there is no hidden content"
+    //     });
+    // }) 
 
     authRouter.get("/receptionist", ValidateToken,IsReceptionist, function (req, res) {
 
