@@ -2,7 +2,7 @@ const { signUp, signin } = require("../Controllers/authController");
 const express = require("express");
 const authRouter = express.Router();
 const {ValidateToken} = require('./../middleware/validation/validateToken')
-const {IsPatient} = require('./../middleware/validation/isPation')
+const {IsPatient} = require('./../middleware/validation/isPationt')
 const {IsAdmin} =require('./../middleware/validation/isAdmin')
 const {IsDoctor} = require('./../middleware/validation/isDoctor')
 const {IsReceptionist} = require('./../middleware/validation/isEmployee');
@@ -12,7 +12,7 @@ const upload = require("../middleware/uploadImage");
 authRouter.post("/register", upload.single("image"), signUp);
 authRouter.post('/login',signin);
 
-authRouter.get("/patien",ValidateToken,IsPatient,function (req, res) {
+authRouter.get("/patient",ValidateToken,IsPatient,function (req, res) {
 
     res.status(200)
         .send({
@@ -55,12 +55,6 @@ authRouter.get("/patien",ValidateToken,IsPatient,function (req, res) {
         });
     }) 
 
-    authRouter.get("/receptionist", ValidateToken,IsReceptionist, function (req, res) {
-
-        res.status(200)
-            .send({
-                message: "Congratulations! but there is no hidden content"
-        });
-    }) 
+     
 
 module.exports = authRouter;

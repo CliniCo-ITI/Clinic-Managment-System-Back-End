@@ -3,6 +3,8 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const authRouter = require("./Routes/authRoute");
+const recepAdminRouter = require("./Routes/adminreceptionistRouter");
+const recepRouter = require("./Routes/receptionistRouter");
 const bodyParser = require("body-parser");
 
 app.use(bodyParser.json());
@@ -27,8 +29,10 @@ mongoose
   /**************Middlewares***** */
   app.use('/uploads',express.static('uploads'));
   app.use(authRouter);
-  
-  
+  //admin middlewares:
+  app.use('/admin/receptionist',recepAdminRouter);
+  //receptionist middlewares:
+  app.use('/receptionist',recepRouter);
   
 
   app.get("/", (req, res) => {

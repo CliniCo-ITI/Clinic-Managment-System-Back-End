@@ -15,17 +15,18 @@ const userschema = new mongoose.Schema({
     type: String,
     required: true,
     default:"patient",
-    enum: ["admin", "doctor", "patient" , "receptionist" , "clinic-manager"],
+    enum: ["admin", "doctor", "patient" , "receptionist"],
   },
   // userId:{
   //   type: mongoose.Schema.Types.ObjectId,
   //   required: true,
   //   refPath: "userType",
   // }
-  userID:{ 
+  userID: { 
     type:mongoose.Schema.Types.ObjectId, 
     ref:function(){
     this.ref = this.UserType;
 }}
+
 });
 module.exports = mongoose.model('users',userschema);

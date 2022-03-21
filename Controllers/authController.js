@@ -3,54 +3,52 @@ const bcrypt = require("bcrypt");
 const User = require("../Model/User");
 const Doctor = require("../Model/Doctor");
 const Patient = require("../Model/Patient");
+const { jwt_secret } = require("./../config/secrets");
+const { userDto } = require("./../dto/user.dto");
 const upload = require("../middleware/uploadImage");
-const {jwt_secret} = require('./../config/secrets')
-const {userDto} = require('./../dto/user.dto')
 
 
-module.exports.signUp = async (req,res)=>{
-    const {email} = req.body;
-    const userExcist = await User.findOne({email});
-    if(userExcist){
-        return res.status(400).json({msg:'user already excist'});
-    }
-    const newUser = new User({
-        fname: req.body.fname,
-        lname: req.body.lname,
-        email: req.body.email,
-        password: bcrypt.hashSync(req.body.password,8),
-        image: req.file.filename,
-        age: req.body.age,
-        phoneNumber: req.body.phoneNumber,
-        gender: req.body.gender,
-        userType: req.body.userType,
-    });
-    console.log(newUser.userType);
-    if(req.body.userType === "patient"){
-        const newPatient = new Patient({
-            hasInsurance: req.body.hasInsurance,
-            insuranceNumber: req.body.insuranceNumber
-        }).save()
-            .then( object =>{
-                newUser.save()
-                .then()
-                .catch(err=>{
-                    console.log(err);
-                })
-                res.status(201).json({message: "patient added"});
-            })
-     }else if (req.body.userType === "admin"){
-                newUser.save()
-                .then()
-                .catch(err=>{
-                    console.log(err);
-                })
-                res.status(201).json({message: "admin added"});
-            
-    }//TO_DO add other types of USERS other than patient and who can register or will be added 
 
-}
-
+module.exports.signUp = (req, res) => {
+  const newUser = new User({
+    fname: req.body.fname,
+    lname: req.body.lname,
+    email: req.body.email,
+    password: bcrypt.hashSync(req.body.password, 8),
+    image: req.file.filename,
+    age: req.body.age,
+    phoneNumber: req.body.phoneNumber,
+    gender: req.body.gender,
+    userType: req.body.userType,
+  });
+  if (req.body.userType === "patient") {
+    const newPatient = new Patient({
+      hasInsurance: req.body.hasInsurance,
+      insuranceNumber: req.body.insuranceNumber,
+    })
+      .save()
+      .then((object) => {
+        newUser
+          .save()
+          .then()
+          .catch((err) => {
+            console.log(err);
+          });
+        res.status(201).json({ message: "patient added" });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } else if (req.body.userType === "admin") {
+    newUser
+      .save()
+      .then()
+      .catch((err) => {
+        console.log(err);
+      });
+    res.status(201).json({ message: "admin added" });
+  } //TO_DO add other types of USERS other than patient and who can register or will be added
+};
 
 exports.signin = (req, res) => {
   User.findOne({
@@ -89,3 +87,5 @@ exports.signin = (req, res) => {
     });
   });
 };
+
+
