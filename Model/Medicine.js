@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const medicineSchema = new mongoose.Schema({
-    productionDate: {type: Date},
+    productionDate: {type:Date},
     expirationDate: {type: Date},
     price: {type: Number},
     description: {type: String},
