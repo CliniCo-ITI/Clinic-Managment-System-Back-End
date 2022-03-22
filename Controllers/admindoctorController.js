@@ -26,7 +26,7 @@ exports.addDotor = async (req,res)=>{
     const {email} = req.body;
     const userExcist = await User.findOne({email});
     if(userExcist){
-        return res.status(400).json({msg:'user already excist'});
+        return res.status(400).json({msg:'user already exist'});
     }
     const {fname,lname,password,age,phoneNumber,gender,userType,vezeeta,clinic,specialization} = req.body;
    
@@ -35,7 +35,7 @@ exports.addDotor = async (req,res)=>{
         lname,
         email,
         password:bcrypt.hashSync(password, 10),
-        image: req.file.filename,
+        image: req.files.image[0].filename,
         age,
         phoneNumber,
         gender,
@@ -45,7 +45,7 @@ exports.addDotor = async (req,res)=>{
     if(req.body.userType === "doctor"){
         const newDoctor = new Doctor({
             vezeeta,
-            // ppl:req.file.filename,
+            ppl:req.files.ppl[0].filename,
             clinic,
             userRef:user._id,
             specialization
@@ -84,6 +84,7 @@ exports.updateDoctor = async(req,res)=>{
     try{
         const doctor = await Doctor.findByIdAndUpdate(id,{
             vezeeta,
+            ppl: req.files.ppl[0].filename,
             clinic,
             specialization
         },

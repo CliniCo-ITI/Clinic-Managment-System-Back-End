@@ -30,7 +30,7 @@ exports.addDotor = async (req,res)=>{
         lname,
         email,
         password:bcrypt.hashSync(password, 10),
-        image: req.file.filename,
+        image: req.files.image[0].filename,
         age,
         phoneNumber,
         gender,
@@ -40,7 +40,7 @@ exports.addDotor = async (req,res)=>{
     if(req.body.userType === "doctor"){
         const newDoctor = new Doctor({
             vezeeta,
-            // ppl:req.file.filename,
+            ppl:req.files.ppl[0].filename,
             clinic,
             userRef:user._id,
             specialization
@@ -79,6 +79,7 @@ exports.updateDoctor = async(req,res)=>{
     try{
         const doctor = await Doctor.findByIdAndUpdate(id,{
             vezeeta,
+            ppl: req.files.image[0].filename,
             clinic,
             specialization
         },
@@ -88,10 +89,9 @@ exports.updateDoctor = async(req,res)=>{
         );
         const user = await User.findByIdAndUpdate(id,{
 
-            image: req.file.filename,
+            image: req.files.image[0].filename,
             age,
             phoneNumber,
-
         },
         {
             new:true

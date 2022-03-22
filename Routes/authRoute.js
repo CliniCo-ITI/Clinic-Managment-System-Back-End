@@ -10,6 +10,11 @@ const multer = require("multer");
 const upload = require("../middleware/uploadImage");
 
 authRouter.post("/register", upload.single("image"), signUp);
+// authRouter.post("/register", upload.fields([
+//     {name: 'image', maxCount: 1}, 
+//     null
+// ]), signUp);
+
 authRouter.post('/login',signin);
 
 authRouter.get("/patient",ValidateToken,IsPatient,function (req, res) {

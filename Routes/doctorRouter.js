@@ -13,7 +13,14 @@ const router = express.Router();
 // .get('/:id',ValidateToken,IsAdmin,getDoctorById)
 
 router.get("/doctor/:id",ValidateToken,IsDoctor,getDoctorById);
-router.post("/doctor/:id",ValidateToken,IsDoctor ,upload.single("image"),updateDoctor);
+// router.post("/doctor/:id",ValidateToken,IsDoctor ,upload.single("image"),updateDoctor);
+ router.post("/doctor/:id",ValidateToken,IsDoctor ,upload.fields([{
+        name: 'image', maxCount: 1
+    }, {
+        name: 'ppl', maxCount: 1
+    }]),updateDoctor);
+
+
 // router.delete("/doctor/:id",ValidateToken,IsAdmin,deleteDoctor);
 // router.put("/doctor/:id",ValidateToken,IsAdmin,updateDoctor);
 module.exports=router;

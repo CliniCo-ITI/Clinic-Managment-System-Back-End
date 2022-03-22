@@ -9,6 +9,7 @@ const upload = require("../middleware/uploadImage");
 
 
 
+
 module.exports.signUp = (req, res) => {
   const newUser = new User({
     fname: req.body.fname,
