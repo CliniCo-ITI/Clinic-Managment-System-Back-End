@@ -7,6 +7,9 @@ const { jwt_secret } = require("./../config/secrets");
 const { userDto } = require("./../dto/user.dto");
 const upload = require("../middleware/uploadImage");
 
+
+
+
 module.exports.signUp = (req, res) => {
   const newUser = new User({
     fname: req.body.fname,
@@ -85,3 +88,5 @@ exports.signin = (req, res) => {
     });
   });
 };
+
+

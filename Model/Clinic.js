@@ -7,7 +7,8 @@ const clinicSchema = new mongoose.Schema({
     endTime: {type: String, required:true},
     medicines: [
         {
-            type: mongoose.Schema.Types.ObjectId,
+            // type: mongoose.Schema.Types.ObjectId,
+            type: Number,
             ref:'medicines',
         }
     ]
