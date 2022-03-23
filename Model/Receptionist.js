@@ -12,4 +12,10 @@ const receptionistSchema = new mongoose.Schema({
 });
 
 
+
+
+
+
 module.exports = mongoose.model("receptionists",receptionistSchema);
+
+

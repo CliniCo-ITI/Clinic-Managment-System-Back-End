@@ -8,6 +8,12 @@ const recepRouter = require("./Routes/receptionistRouter");
 const adminDoctorRouter = require('./Routes/admindoctorRouter');
 const doctorRouter = require('./Routes/doctorRouter')
 const bodyParser = require("body-parser");
+const medicine = require("./Routes/medicine");
+const clinic = require("./Routes/clinic");
+const receptionist = require("./Routes/receptionist");
+const prescription = require("./Routes/prescription");
+
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -45,5 +51,20 @@ mongoose
   app.get("/", (req, res) => {
     res.json({ message: "Hello World" });
   });
+
+
+  app.use("/medicine",medicine);
+  app.use("/clinic",clinic);
+  app.use("/receptionist",receptionist);
+  app.use("/prescription",prescription);
+
+
+  
+
+  app.use((error, request, response, next) => {
+    error.status = error.status || 500;
+    response.status(error.status).send("Sorry there is an Error " + error);
+
+})
  
   
