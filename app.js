@@ -1,34 +1,40 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
-require("dotenv").config();
 const authRouter = require("./Routes/authRoute");
 const bodyParser = require("body-parser");
+const PORT = process.env.PORT || 8080;
+const DBConnect = require("./config/connectDB");
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
 // Connect to Database (CMS)
-mongoose
-  .connect("mongodb://localhost:27017/CMS")
-  .then(() => {
+DBConnect();
 
-    console.log("DB Connected");
-    // Connect to the server
-    app.listen(process.env.PORT || 8080, () => {
-        console.log("running at http://localhost:8080");
-      })
-  })
-  .catch(() => {
-    console.log("DB Connection Error!!!!");
-  });
+//middleware for json 
+app.use(bodyParser.json());
 
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({extended:false}));
-  /**************Middlewares***** */
-  app.use('/uploads',express.static('uploads'));
-  app.use(authRouter);
-  app.get("/", (req, res) => {
-    res.json({ message: "Hello World" });
+//middle ware for html forms
+app.use(bodyParser.urlencoded({ extended: false }));
+
+//serve files
+app.use("/uploads", express.static("uploads"));
+
+// Routes
+
+app.use(authRouter);
+app.use("/invoices",require('./Routes/invoiceRoute'));
+app.use("/appointments",require('./Routes/appointmentRouter'));
+// app.get("/", (req, res) => {
+//   res.json({ message: "Hello World" });
+// });
+
+
+// Check database connection
+// Starting the server
+
+mongoose.connection.once("open", () => {
+  console.log("DB Connected");
+  app.listen(PORT || 8080, () => {
+    console.log(`Server started at port ${PORT}`);
   });
- 
-  
+});

@@ -5,7 +5,8 @@ const invoiceSchema = new mongoose.Schema({
                 {
                     type:String, 
                     enum:["Cash","CreditCard","InsuranceCard"],
-                    default: "Cash"
+                    default: "Cash",
+                    required:true
                 },
     totalAmount: {
                     type: Number,
