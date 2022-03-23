@@ -10,10 +10,10 @@ const recepAdminRouter = require("./Routes/adminreceptionistRouter");
 const recepRouter = require("./Routes/receptionistRouter");
 const adminDoctorRouter = require('./Routes/admindoctorRouter');
 const doctorRouter = require('./Routes/doctorRouter')
-const medicine = require("./Routes/medicine");
-const clinic = require("./Routes/clinic");
-const receptionist = require("./Routes/receptionist");
-const prescription = require("./Routes/prescription");
+const medicine = require("./Routes/medicineRouter");
+const clinic = require("./Routes/clinicRouter");
+const receptionist = require("./Routes/receptionistRouter");
+const prescription = require("./Routes/prescriptionRouter");
 const DBConnect = require("./config/connectDB");
 const PORT = process.env.PORT || 8080;
 
@@ -49,10 +49,10 @@ app.use('/receptionist',recepRouter);
 app.use(authRouter);
 app.use("/invoices",require('./Routes/invoiceRoute'));
 app.use("/appointments",require('./Routes/appointmentRouter'));
-app.use("/medicine",medicine);
-app.use("/clinic",clinic);
-app.use("/receptionist",receptionist);
-app.use("/prescription",prescription);
+app.use("/medicines",medicine);
+app.use("/clinics",clinic);
+app.use("/receptionists",receptionist);
+app.use("/prescriptions",prescription);
 
 // Check database connection
 // Starting the server

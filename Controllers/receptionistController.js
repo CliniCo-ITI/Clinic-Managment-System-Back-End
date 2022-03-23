@@ -2,7 +2,6 @@ const User = require('../Model/User');
 const Recep = require('../Model/Receptionist');
 const upload = require("../middleware/uploadImage");
 const bcrypt = require("bcrypt");
-const { json } = require('body-parser');
 
 
 exports.getRecepById = async (req,res)=>{

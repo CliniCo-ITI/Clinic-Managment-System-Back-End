@@ -1,10 +1,8 @@
-
-
 const express = require("express");
 const { body } = require("express-validator");
 const { param } = require("express/lib/request");
 
-const controller = require("../Controllers/prescription");
+const controller = require("../Controllers/prescriptionController");
 
 const router = express.Router();
 
