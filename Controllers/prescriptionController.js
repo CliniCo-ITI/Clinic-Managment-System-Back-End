@@ -9,7 +9,7 @@ const prescription = require("../Model/Prescription");
 /***************List Of Prescription***************/
 
 exports.getPrescription = function (req, res, next) {
-    prescription.find({})
+    prescription.find({}).populate({path:"medicines appointment"})
 
         .then(result => {
             res.status(200).json(result);

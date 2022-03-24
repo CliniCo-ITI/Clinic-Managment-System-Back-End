@@ -10,10 +10,10 @@ const doctorschema = new mongoose.Schema({
     //     ref: 'clinics'
     // },
     specialization:{
-        type: Number,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'specializations'
     },
-    clinic: {type:Number, ref: 'clinics'},
+    clinic: {type:mongoose.Schema.Types.ObjectId, ref: 'clinics'},
     userRef:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'

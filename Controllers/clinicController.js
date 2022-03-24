@@ -6,7 +6,7 @@ const clinic = require("../Model/Clinic");
 /***************List Of Clinic***************/
 
 exports.getClinic = function (req, res, next) {
-    clinic.find({})
+    clinic.find({}).populate({path:'medicines'})
 
         .then(result => {
             res.status(200).json(result);

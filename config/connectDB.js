@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 // Database connection open
 const connection = async ()=> {
     try{
-        await mongoose.connect(process.env.DATABASE_URI, {
+        await mongoose.connect("mongodb://localhost:27017/CMS", {
             // useUnifiedTopology: true,
             // useNewUrlParser: true
         });

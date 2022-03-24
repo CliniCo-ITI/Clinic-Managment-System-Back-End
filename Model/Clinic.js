@@ -8,7 +8,7 @@ const clinicSchema = new mongoose.Schema({
     medicines: [
         {
             // type: mongoose.Schema.Types.ObjectId,
-            type: Number,
+            type: mongoose.Schema.Types.ObjectId,
             ref:'medicines',
         }
     ]
