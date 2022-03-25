@@ -49,8 +49,8 @@ app.use('/receptionist',recepRouter);
 app.use(authRouter);
 app.use("/invoices",require('./Routes/invoiceRoute'));
 app.use("/appointments",require('./Routes/appointmentRouter'));
-app.use("/medicines",medicine);
-app.use("/clinics",clinic);
+app.use("/admin/medicines",medicine);
+app.use("/admin/clinics",clinic);
 app.use("/receptionists",receptionist);
 app.use("/prescriptions",prescription);
 

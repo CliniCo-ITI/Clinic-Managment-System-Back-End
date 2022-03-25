@@ -15,6 +15,22 @@ exports.getMedicine = function (req, res, next) {
         .catch(error => next(error));
 }
 
+/***************Medicine By ID***************/
+
+exports.getMedicineById = async (req, res, next)=>{
+
+    const {id} = req.params;
+    console.log(id);
+    try{
+        const mid = await medicine.findById(id);
+        mid
+        .populate({path:"clinics"})
+        .then(data=>res.json(data))
+    }catch(error){
+        res.json({msg:error})
+    }
+    
+}
 
 /***************Creat New Medicine*************/
 
@@ -30,8 +46,8 @@ exports.createMedicine = function (req, res, next) {
     else {
         
         let medicineObject = new medicine({
-            productionDate: req.body.productionDate,
-            expirationDate: req.body.expirationDate,
+            // productionDate: req.body.productionDate,
+            // expirationDate: req.body.expirationDate,     
             price: req.body.price,
             description: req.body.description,
             clinics: req.body.clinics

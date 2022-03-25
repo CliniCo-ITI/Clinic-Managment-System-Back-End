@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 
 exports.getAllDoctors = async (req,res)=>{
       await Doctor.find()
-      .populate({path:"userRef"})
+      .populate({path:"userRef clinic"})
       .then(doctors=>res.json(doctors))
       .catch(error=>res.json({msg:error}));
 }
