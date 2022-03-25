@@ -14,6 +14,22 @@ exports.getClinic = function (req, res, next) {
         .catch(error => next(error));
 }
 
+/***************Clinic By ID***************/
+
+exports.getClinicById = async (req, res, next)=>{
+
+    const {id} = req.params;
+    console.log(id);
+    try{
+        const clin = await clinic.findById(id);
+        clin
+        .populate({path:"medicines"})
+        .then(data=>res.json(data))
+    }catch(error){
+        res.json({msg:error})
+    }
+    
+}
 
 /***************Creat New Clinic*************/
 

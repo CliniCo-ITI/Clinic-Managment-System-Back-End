@@ -1,11 +1,10 @@
 
 const express = require("express");
+const {IsAdmin} = require('./../middleware/validation/isAdmin');
+const {ValidateToken} = require('./../middleware/validation/validateToken');
 const { body } = require("express-validator");
 
 const controller = require("../Controllers/clinicController");
-const {ValidateToken} = require('./../middleware/validation/validateToken');
-const { IsAdmin } = require('./../middleware/validation/isAdmin');
-
 
 const router = express.Router();
 
@@ -16,6 +15,10 @@ const router = express.Router();
 /***************List Of Clinic***************/
 router.get("/", controller.getClinic);
 
+
+
+/***************one Clinic***************/
+router.get("/:id", controller.getClinicById);
 
 
 /***************Creat New Clinic*************/

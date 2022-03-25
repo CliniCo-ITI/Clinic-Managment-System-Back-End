@@ -14,7 +14,7 @@ const router = express.Router();
 
 router.get("/doctor/:id",ValidateToken,IsDoctor,getDoctorById);
 // router.post("/doctor/:id",ValidateToken,IsDoctor ,upload.single("image"),updateDoctor);
- router.post("/doctor/:id",ValidateToken,IsDoctor ,upload.fields([{
+ router.put("/doctor/:id",ValidateToken,IsDoctor ,upload.fields([{
         name: 'image', maxCount: 1
     }, {
         name: 'ppl', maxCount: 1
