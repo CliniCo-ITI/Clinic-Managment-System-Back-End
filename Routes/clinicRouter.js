@@ -3,6 +3,9 @@ const express = require("express");
 const { body } = require("express-validator");
 
 const controller = require("../Controllers/clinicController");
+const {ValidateToken} = require('./../middleware/validation/validateToken');
+const { IsAdmin } = require('./../middleware/validation/isAdmin');
+
 
 const router = express.Router();
 
@@ -23,8 +26,10 @@ router.post("/"
         body("address").isAlpha().withMessage("Please enter your address correctly"),
         body("startTime").isAlpha().withMessage("Please enter start time correctly"),
         body("endTime").isAlpha().withMessage("Please end start time correctly")
+        // body("startTime"),
+        // body("endTime")
     ]
-    , controller.createClinic);
+    ,ValidateToken,IsAdmin, controller.createClinic);
 
 
 /***************Update Clinic****************/

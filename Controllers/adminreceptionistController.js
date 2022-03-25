@@ -9,7 +9,7 @@ const { json } = require('body-parser');
 exports.getReceps =(req,res)=>{
 
     const receps = Recep.find()
-    .populate({path: "userRef"})
+    .populate({path: "userRef clinic"})
     .then(receps => res.json(receps))
     .catch(err => res.json({message: err}));
 }
@@ -18,7 +18,7 @@ exports.getRecepById = async (req,res)=>{
     try{
         const recep = await Recep.findById(req.params.recepId);
         recep
-        .populate({path: "userRef"})
+        .populate({path: "userRef clinic"})
         .then(recepData => res.json(recepData))
     }catch(err){
         res.json({msg: err});

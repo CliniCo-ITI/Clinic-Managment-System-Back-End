@@ -8,7 +8,7 @@ exports.getRecepById = async (req,res)=>{
     try{
         const recep = await Recep.findById(req.params.recepId);
         recep
-        .populate({path: "userRef"})
+        .populate({path: "userRef,clinic"})
         .then(recepData => res.json(recepData))
     }catch(err){
         res.json({msg: err});
