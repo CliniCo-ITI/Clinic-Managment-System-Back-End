@@ -13,6 +13,11 @@ adminRecepRouter.post("/add",ValidateToken,IsAdmin,upload.single("image"),addRec
 adminRecepRouter.put("/:recepId",ValidateToken,IsAdmin,updateRecep)
 adminRecepRouter.delete("/:recepId",ValidateToken,IsAdmin,deleteRecep);
 
+// adminRecepRouter.get("/",getReceps);
+// adminRecepRouter.get("/:recepId",getRecepById);
+// adminRecepRouter.post("/add",upload.single("image"),addRecep);
+// adminRecepRouter.put("/:recepId",updateRecep);
+// adminRecepRouter.delete("/:recepId",deleteRecep);
 
 
 

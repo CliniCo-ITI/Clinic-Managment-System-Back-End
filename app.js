@@ -1,8 +1,8 @@
-require("dotenv").config();
-const mongoose = require("mongoose");
 const express = require("express");
-const bodyParser = require("body-parser");
 const app = express();
+const mongoose = require("mongoose");
+require("dotenv").config();
+const bodyParser = require("body-parser");
 const cors = require('cors');
 
 const authRouter = require("./Routes/authRoute");
