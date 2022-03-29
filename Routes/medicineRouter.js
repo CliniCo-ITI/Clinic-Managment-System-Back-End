@@ -25,16 +25,16 @@ router.post("/"
 
 
 /***************Update Medicine****************/
-router.put("/",[
-    body("productionDate").isDate().withMessage("Please enter a valid production date"),
-    body("expirationDate").isDate().withMessage("Please enter a valid expiration date"),
-    body("price").isCurrency().withMessage("The price should be currency"),
-    body("description").isAlpha().withMessage("please enter a valid description")
+router.put("/:id",[
+    // body("productionDate").isDate().withMessage("Please enter a valid production date"),
+    // body("expirationDate").isDate().withMessage("Please enter a valid expiration date"),
+    // body("price").isCurrency().withMessage("The price should be currency"),
+    // body("description").isAlpha().withMessage("please enter a valid description")
 ],controller.updateMedicine);
 
 
 /***************Delete Medicine***************/
-router.delete("/:description",controller.deleteMedicine);
+router.delete("/:id",controller.deleteMedicine);
 
 
 module.exports=router;

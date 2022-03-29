@@ -37,11 +37,11 @@ router.post("/"
 
 /***************Update Clinic****************/
 
-router.put("/", [
-    body("governorate").isAlpha().withMessage("Please enter your governorate correctly"),
-    body("address").isAlpha().withMessage("Please enter your address correctly"),
-    body("startTime").isAlpha().withMessage("Please enter start time correctly"),
-    body("endTime").isAlpha().withMessage("Please end start time correctly")
+router.put("/:id", [
+    // body("governorate").isAlpha().withMessage("Please enter your governorate correctly"),
+    // body("address").isAlpha().withMessage("Please enter your address correctly"),
+    // body("startTime").isAlpha().withMessage("Please enter start time correctly"),
+    // body("endTime").isAlpha().withMessage("Please end start time correctly")
 ], controller.updateClinic);
 
 

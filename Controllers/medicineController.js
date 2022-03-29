@@ -46,6 +46,7 @@ exports.createMedicine = function (req, res, next) {
     else {
         
         let medicineObject = new medicine({
+            name:req.body.name,
             // productionDate: req.body.productionDate,
             // expirationDate: req.body.expirationDate,     
             price: req.body.price,
@@ -62,41 +63,62 @@ exports.createMedicine = function (req, res, next) {
 
 /***************Update Medicine****************/
 
-exports.updateMedicine = function (req, res, next) {
-    medicine.updateOne({ description: req.body.description },
-        {
-            $set: {
-                productionDate: req.body.productionDate,
-                expirationDate: req.body.expirationDate,
-                price: req.body.price,
-                clinics: req.body.clinics
-            }
-        }).then(result => {
-            res.status(201).json({ message: "updated" });
-        }).catch(error => {
-            error.status = 500;
-            next(error);
-        })
-}
+// exports.updateMedicine = function (req, res, next) {
+//     medicine.updateOne({ description: req.body.description },
+//         {
+//             $set: {
+//                 productionDate: req.body.productionDate,
+//                 expirationDate: req.body.expirationDate,
+//                 price: req.body.price,
+//                 clinics: req.body.clinics
+//             }
+//         }).then(result => {
+//             res.status(201).json({ message: "updated" });
+//         }).catch(error => {
+//             error.status = 500;
+//             next(error);
+//         })
+// }
+exports.updateMedicine = async (req, res, next) => {
 
+    const {id} = req.params;
+    console.log(id);
+    const {name,productionDate,expirationDate,price,description} = req.body;
+    try{
+        const med = await medicine.findByIdAndUpdate(id,{
+            name,
+            // productionDate,
+            // expirationDate,
+            price,
+            description
+        },
+        {
+            new:true
+        }
+        );
+            res.json({ med });
+        }catch(error){
+            res.json({msg:"error"})
+        }
+   
+}
 
 /***************Delete Medicine***************/
 
+
+
 exports.deleteMedicine = async (req, res, next) => {
-
-
-    const obj = await medicine.findOne({ description: req.params.description }).exec()
-    if (obj) {
-
-        await medicine.deleteOne({ description: req.params.description })
-
-        res.status(201).json({ message: "deleted" });
+    const {id} = req.params
+    console.log(id);
+    try{
+        await medicine.findByIdAndDelete(id);
+        res.status(200).json({msg: "medicin Deleted Successfully"})
     }
-    else {
+    catch(error){
+        res.json({msg:error})
+    }  
 
-        return res.status(422).json({ message: "Not Found" })
-
-    }
+ 
 }
 
 
