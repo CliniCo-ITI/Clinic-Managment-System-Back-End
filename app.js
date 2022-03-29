@@ -6,13 +6,12 @@ const bodyParser = require("body-parser");
 const cors = require('cors');
 
 const authRouter = require("./Routes/authRoute");
-const recepAdminRouter = require("./Routes/adminreceptionistRouter");
+const adminRecepRouter = require("./Routes/adminreceptionistRouter");
 const recepRouter = require("./Routes/receptionistRouter");
 const adminDoctorRouter = require('./Routes/admindoctorRouter');
 const doctorRouter = require('./Routes/doctorRouter')
 const medicine = require("./Routes/medicineRouter");
 const clinic = require("./Routes/clinicRouter");
-const receptionist = require("./Routes/receptionistRouter");
 const prescription = require("./Routes/prescriptionRouter");
 const DBConnect = require("./config/connectDB");
 const PORT = process.env.PORT || 8080;
@@ -27,8 +26,8 @@ app.use(cors())
 app.use(bodyParser.json());
 
 //middleware for html forms
-app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(express.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({ extended: false,limit: '50mb'} ));
 
 // Serve files
 app.use('/uploads',express.static('uploads'));
@@ -38,20 +37,17 @@ app.use(authRouter);
 
 // Admin middlewares
 app.use('/admin',adminDoctorRouter)
-app.use('/admin/receptionist',recepAdminRouter);
+app.use('/admin/receptionist',adminRecepRouter);
 
 // Receptionist middlewares 
 app.use(doctorRouter)
 app.use('/receptionist',recepRouter);
 
 // Routes
-
-app.use(authRouter);
 app.use("/invoices",require('./Routes/invoiceRoute'));
 app.use("/appointments",require('./Routes/appointmentRouter'));
-app.use("/admin/medicines",medicine);
-app.use("/admin/clinics",clinic);
-app.use("/receptionists",receptionist);
+app.use("/medicines",medicine);
+app.use("/clinics",clinic);
 app.use("/prescriptions",prescription);
 
 // Check database connection

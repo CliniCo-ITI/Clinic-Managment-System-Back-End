@@ -7,7 +7,11 @@ const userschema = new mongoose.Schema({
           lowercase: true,
           unique: true },
   password: { type: String, required: true },
-  image: { type: String,required:true},
+  image: { 
+    type: String,
+    required:true,
+    default: "uploads\\images\\anon.jpg"
+  },
   age: { type: Number, required: true },
   phoneNumber: { type: String, required: true},
   gender: { type: String, enum: ["M", "F"], default: "M" },

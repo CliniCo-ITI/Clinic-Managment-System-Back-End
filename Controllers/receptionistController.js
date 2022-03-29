@@ -8,7 +8,7 @@ exports.getRecepById = async (req,res)=>{
     try{
         const recep = await Recep.findById(req.params.recepId);
         recep
-        .populate({path: "userRef,clinic"})
+        .populate({path: "userRef clinic"})
         .then(recepData => res.json(recepData))
     }catch(err){
         res.json({msg: err});
@@ -30,12 +30,12 @@ exports.updateRecep = async (req,res)=>{
             {_id: recep.userRef},
         {
             $set: {
-                image: req.file.filename,
+                image: req.file?.filename,
                 age: req.body.age,
                 phoneNumber: req.body.phoneNumber
             }
         })
-        res.json([userToUpdate,recepToUpdate])
+        res.status(201).json([userToUpdate,recepToUpdate])
 
     }catch(err){
         res.json({message: err})

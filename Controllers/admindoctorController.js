@@ -4,10 +4,10 @@ const upload = require("../middleware/uploadImage");
 const bcrypt = require("bcrypt");
 
 exports.getAllDoctors = async (req,res)=>{
-      await Doctor.find()
-      .populate({path:"userRef clinic"})
-      .then(doctors=>res.json(doctors))
-      .catch(error=>res.json({msg:error}));
+    await Doctor.find()
+    .populate({path:"userRef clinic"})
+    .then(doctors=>res.json(doctors))
+    .catch(error=>res.json({msg:error}));
 }
 
 exports.getDoctorById = async (req,res,next)=>{
@@ -35,7 +35,7 @@ exports.addDotor = async (req,res)=>{
         lname,
         email,
         password:bcrypt.hashSync(password, 10),
-        image: req.files.image[0].filename,
+        image: req.files.image[0].path,
         age,
         phoneNumber,
         gender,
@@ -45,7 +45,7 @@ exports.addDotor = async (req,res)=>{
     if(req.body.userType === "doctor"){
         const newDoctor = new Doctor({
             vezeeta,
-            ppl:req.files.ppl[0].filename,
+            ppl:req.files.ppl[0].path,
             clinic,
             userRef:user._id,
             specialization
@@ -84,7 +84,7 @@ exports.updateDoctor = async(req,res)=>{
     try{
         const doctor = await Doctor.findByIdAndUpdate(id,{
             vezeeta,
-            ppl: req.files.ppl[0].filename,
+            // ppl: req.files.ppl[0].filename,
             clinic,
             specialization
         },
