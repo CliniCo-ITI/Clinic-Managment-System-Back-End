@@ -1,0 +1,60 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="md-col-12 text-center bg-warning">
+            <h1>image upload progress bar</h1>
+       
+    </div>
+</div>
+<div class="container">
+  <form [formGroup]="myform" (ngSubmit)="submitImage()">
+<!--  -->
+    <!-- //progress bar -->
+    <div class="progress form-group" *ngIf="progress>0"  >
+      
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+          </div>
+<!-- fname -->
+   <div class="form-group input-group-lg">
+       <input class="form-control" placeholder="first name" formCon trolName="fname">
+   </div>
+   <!-- lname -->
+   <div class="form-group input-group-lg">
+    <input class="form-control" placeholder="last name" formControlName="lname">
+</div>
+<!-- email -->
+<div class="form-group input-group-lg">
+    <input class="form-control" placeholder="x@Gmail.com" formControlName="email">
+</div>
+<!-- password -->
+<div class="form-group input-group-lg">
+    <input class="form-control" type="password" placeholder="password" formControlName="password">
+</div>
+<!-- image -->
+<div class="form-group input-group-lg">
+    <input type="file" (change)="Fileupload()"> 
+     <!-- <input type="file"  > -->
+</div>
+<!-- age -->
+<div class="form-group input-group-lg">
+    <input class="form-control"   type="number" placeholder="age" formControlName="age">
+</div>
+<!-- phone -->
+<div class="form-group input-group-lg">
+    <input class="form-control" placeholder="phone" formControlName="phone">
+</div>
+<!-- gender -->
+<div class="form-group input-group-lg">
+    <input class="form-control" placeholder="Gender" formControlName="gender">
+</div>
+<!-- usertype -->
+
+<!-- //enum here -->
+<!-- submit -->
+<div class="form-group input-group-lg">
+    <input class="btn-block btn btn-lg btn btn-success"value="Register" type="button" formControlName="submitbtn">
+</div>
+</form>
+  
+</div>
+</div>
+

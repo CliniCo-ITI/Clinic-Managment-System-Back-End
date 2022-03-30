@@ -25,7 +25,13 @@
     "open": "^8.4.0",
     "path": "^0.12.7"
   },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
+  },
   "devDependencies": {
     "nodemon": "^2.0.15"
   }
 }
+

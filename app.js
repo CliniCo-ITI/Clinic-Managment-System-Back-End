@@ -15,7 +15,7 @@ const clinic = require("./Routes/clinicRouter");
 const receptionist = require("./Routes/receptionistRouter");
 const prescription = require("./Routes/prescriptionRouter");
 const DBConnect = require("./config/connectDB");
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8600;
 
 // Connect to Database (CMS)
 DBConnect();
