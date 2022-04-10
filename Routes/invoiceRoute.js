@@ -19,6 +19,10 @@ router.post(
   invoiceController.addInvoice
 );
 
+//get invoice by id
+
+router.get("/:id",invoiceController.invoiceById);
+
 // Edit an Invoice
 router.put(
   "/",
@@ -41,3 +45,10 @@ router
   .get(invoiceController.getInvoice);
 
 module.exports = router;
+
+
+
+
+
+
+

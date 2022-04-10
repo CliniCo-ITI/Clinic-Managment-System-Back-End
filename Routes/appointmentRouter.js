@@ -8,7 +8,7 @@ router.get("/", appointmentController.getAllAppointments);
 
 // Add new Appointment
 router.post(
-  "/",
+  "doctor/appointments",
   [
     body("time")
       .isEmpty()
@@ -40,4 +40,5 @@ router
   // Cancel an Appointment
   .delete(appointmentController.cancelAppointment);
 
+  router.get('/reciptionist/appointments/:id',appointmentController.getClinicDoctorsAppointments);
 module.exports = router;

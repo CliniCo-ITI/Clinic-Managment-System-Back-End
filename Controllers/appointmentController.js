@@ -1,5 +1,6 @@
 const { validationResult } = require("express-validator");
 const Appointment = require("../Model/Appointment");
+const Clinic = require("../Model/Clinic");
 const Receptionist = require("../Model/Receptionist");
 // Get All Appointments
 const getAllAppointments = async (req, res, next) => {
@@ -77,20 +78,26 @@ const changeSeen = async (req, res, next) => {
 // List appointments for all doctors in the same clinic
 const getClinicDoctorsAppointments = async (req, res, next) => {
   try {
-    if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
-      const clinicDoctorsAppointment = await Receptionist.findById(
+    console.log("errrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrror")
+    if (req.params._id.match(/^[0-9a-fA-F]{24}$/)) {
+      console.log("3det:)")
+      const clinicDoctorsAppointment = await Clinic.findById(
         req.params.id
       );
+      console.log(clinicDoctorsAppointment);
       if (clinicDoctorsAppointment != null) {
-        const clinicDoctorsAppointment = await Appointment.find({
-          clinic: getClinicDoctorsAppointments.clinic,
+        const appointment = await Appointment.find({
+          clinic: getClinicDoctorsAppointments._id,
         }).populate({ path: "doctor patient" });
-        if (clinicDoctorsAppointment != null) {
-          res.status(100).json(clinicDoctorsAppointment);
+        console.log(appointment);
+        if (appointment != null) {
+          res.status(200).json(appointment);
         }
+       
       }
     }
   } catch (err) {
+   
     err.status = 500;
     next(err);
   }
@@ -102,6 +109,7 @@ const getAppointment = async (req, res, next) => {
     const targetAppointment = await Appointment.findById(
       req.params.id
     ).populate({ path: "doctor patient" });
+
     if (targetAppointment == null)
       return res.status(204).json({ message: "No Appointments found" });
     res.json(targetAppointment);

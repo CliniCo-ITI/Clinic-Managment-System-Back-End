@@ -14,6 +14,7 @@ const medicine = require("./Routes/medicineRouter");
 const clinic = require("./Routes/clinicRouter");
 const receptionist = require("./Routes/receptionistRouter");
 const prescription = require("./Routes/prescriptionRouter");
+const recp = require("./Routes/receptionist");
 const DBConnect = require("./config/connectDB");
 const PORT = process.env.PORT || 8080;
 
@@ -48,11 +49,13 @@ app.use('/receptionist',recepRouter);
 
 app.use(authRouter);
 app.use("/invoices",require('./Routes/invoiceRoute'));
-app.use("/appointments",require('./Routes/appointmentRouter'));
+app.use("/",require('./Routes/appointmentRouter'));
 app.use("/admin/medicines",medicine);
 app.use("/admin/clinics",clinic);
 app.use("/receptionists",receptionist);
 app.use("/prescriptions",prescription);
+app.use("/rcep",recp);
+
 
 // Check database connection
 // Starting the server

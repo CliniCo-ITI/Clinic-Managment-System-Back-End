@@ -3,7 +3,7 @@ const Invoice = require("../Model/Invoice");
 
 // Get All the invoices
 const getAllInvoices = async (req, res, next) => {
-  const invoices = await Invoice.find({}).populate({path:"receptionist appointment"});
+  const invoices = await Invoice.find({}).populate({ path: "receptionist appointment" });
   if (!invoices) return res.status(204).json({ message: "No invoices found" });
   res.json(invoices);
 };
@@ -11,7 +11,7 @@ const getAllInvoices = async (req, res, next) => {
 //Get individual invoice informations
 const getInvoice = async (req, res, next) => {
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
-    const invoice = await Invoice.findById(req.params.id).populate({path:"receptionist appointment"});
+    const invoice = await Invoice.findById(req.params.id).populate({ path: "receptionist appointment" });
     if (invoice == null)
       return res.status(204).json({ message: "No invoices found" });
     res.json(invoice);
@@ -45,7 +45,7 @@ const addInvoice = async (req, res, next) => {
     if (newInvoice) {
       res.status(201).json({ message: "added" });
     } else {
-        let error = new Error();
+      let error = new Error();
       error.status = 500;
       next(error);
     }
@@ -64,23 +64,21 @@ const updateInvoice = async (req, res, next) => {
     next(error);
   } else {
     try {
-      if (req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
-        const updatedInvoice = await Invoice.findById(req.body.id);
-       
-        if(!updatedInvoice)
-        {
-            res.status(204).json({ message: "No invoices found" });
+      if (req.body._id.match(/^[0-9a-fA-F]{24}$/)) {
+        const updatedInvoice = await Invoice.findById(req.body._id);
+
+        if (!updatedInvoice) {
+          res.status(204).json({ message: "No invoices found" });
         }
-        else
-        {
-            updatedInvoice.paymentMethod = req.body.paymentMethod;
-            updatedInvoice.totalAmount = req.body.totalAmount;
-            updatedInvoice.totalPaid = req.body.totalPaid;
-            updatedInvoice.amountLeft = req.body?.amountLeft || "";
-            updatedInvoice.receptionist = req.body.receptionistId;
-            updatedInvoice.appointment = req.body.appointmentId;
-            updatedInvoice.save();
-            res.status(200).json({message:"Updated"});
+        else {
+          updatedInvoice.paymentMethod = req.body.paymentMethod;
+          updatedInvoice.totalAmount = req.body.totalAmount;
+          updatedInvoice.totalPaid = req.body.totalPaid;
+          updatedInvoice.amountLeft = req.body?.amountLeft || "";
+          updatedInvoice.receptionist = req.body.receptionistId;
+          updatedInvoice.appointment = req.body.appointmentId;
+          updatedInvoice.save();
+          res.status(200).json({ message: "Updated" });
         }
 
       }
@@ -102,6 +100,23 @@ const deleteInvoice = async (req, res, nex) => {
   }
 };
 
+//get invoice by id
+const invoiceById = async (req, res, next) => {
+  const id = req.params;
+  console.log("test")
+  console.log(id);
+  
+  try {
+     Invoice.findOne({_id:id.id}).then(result => {
+      res.status(201).json(result);
+      console.log(result)
+    })
+
+  } catch (error) {
+    console.log("errorrrrrrrrrrrrrrrrrrrrrrroooo")
+    next(error);
+  }
+}
 // Export module functions
 module.exports = {
   getAllInvoices,
@@ -109,4 +124,5 @@ module.exports = {
   deleteInvoice,
   updateInvoice,
   addInvoice,
+  invoiceById
 };
