@@ -38,7 +38,8 @@ app.use(authRouter);
 // Admin middlewares
 app.use('/admin',adminDoctorRouter)
 app.use('/admin/receptionist',adminRecepRouter);
-
+app.use("/admin/clinics",clinic);
+app.use("/admin/medicines",medicine);
 // Receptionist middlewares 
 app.use(doctorRouter)
 app.use('/receptionist',recepRouter);
@@ -46,8 +47,9 @@ app.use('/receptionist',recepRouter);
 // Routes
 app.use("/invoices",require('./Routes/invoiceRoute'));
 app.use("/appointments",require('./Routes/appointmentRouter'));
-app.use("/medicines",medicine);
-app.use("/clinics",clinic);
+// app.use("/medicines",medicine);
+// app.use("/clinics",clinic);
+
 app.use("/prescriptions",prescription);
 
 // Check database connection

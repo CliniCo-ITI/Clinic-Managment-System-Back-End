@@ -13,12 +13,12 @@ const router = express.Router();
 
 
 /***************List Of Clinic***************/
-router.get("/", controller.getClinic);
+router.get("/",ValidateToken,IsAdmin, controller.getClinic);
 
 
 
 /***************one Clinic***************/
-router.get("/:id", controller.getClinicById);
+router.get("/:id",ValidateToken,IsAdmin, controller.getClinicById);
 
 
 /***************Creat New Clinic*************/
@@ -42,12 +42,12 @@ router.put("/:id", [
     // body("address").isAlpha().withMessage("Please enter your address correctly"),
     // body("startTime").isAlpha().withMessage("Please enter start time correctly"),
     // body("endTime").isAlpha().withMessage("Please end start time correctly")
-], controller.updateClinic);
+],ValidateToken,IsAdmin, controller.updateClinic);
 
 
 /***************Delete Clinic***************/
 
-router.delete("/:address", controller.deleteClinic);
+router.delete("/:id",ValidateToken,IsAdmin, controller.deleteClinic);
 
 
 module.exports = router;

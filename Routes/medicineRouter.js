@@ -3,11 +3,13 @@ const { body } = require("express-validator");
 const { param } = require("express/lib/request");
 
 const controller = require("../Controllers/medicineController");
+const { IsAdmin } = require("../middleware/validation/isAdmin");
+const { ValidateToken } = require("../middleware/validation/validateToken");
 
 const router = express.Router();
 
 /***************List Of Medicine***************/
-router.get("/",controller.getMedicine);
+router.get("/",ValidateToken,IsAdmin,controller.getMedicine);
 
 /***************one Clinic***************/
 router.get("/:id", controller.getMedicineById);
@@ -21,7 +23,7 @@ router.post("/"
     body("price").isInt().withMessage("The price should be currency"),
     body("description").isAlpha().withMessage("please enter a valid description")
 ]
-,controller.createMedicine);
+,ValidateToken,IsAdmin,controller.createMedicine);
 
 
 /***************Update Medicine****************/
@@ -30,11 +32,11 @@ router.put("/:id",[
     // body("expirationDate").isDate().withMessage("Please enter a valid expiration date"),
     // body("price").isCurrency().withMessage("The price should be currency"),
     // body("description").isAlpha().withMessage("please enter a valid description")
-],controller.updateMedicine);
+],ValidateToken,IsAdmin,controller.updateMedicine);
 
 
 /***************Delete Medicine***************/
-router.delete("/:id",controller.deleteMedicine);
+router.delete("/:id",ValidateToken,IsAdmin,controller.deleteMedicine);
 
 
 module.exports=router;

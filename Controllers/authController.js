@@ -80,8 +80,9 @@ exports.signin = (req, res) => {
     //responding to client request with user profile success message and  access token .
     res.status(200).send({
       user: userDto(user),
-      message: "Login successfully",
-      accessToken: token,
+      // message: "Login successfully",
+      // accessToken: token,
+      token
     });
   });
 };

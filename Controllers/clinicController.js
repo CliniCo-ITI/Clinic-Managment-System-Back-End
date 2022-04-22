@@ -73,7 +73,7 @@ exports.updateClinic = async (req, res, next) => {
             address,
             startTime,
             endTime,
-            // medicines
+            medicines
         },
         {
             new:true
