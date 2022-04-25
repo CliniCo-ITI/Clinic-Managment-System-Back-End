@@ -31,7 +31,6 @@ router.put(
   ],
   appointmentController.updateAppointment
 );
-module.exports = router;
 
 router
   .route("/:id")
@@ -40,4 +39,7 @@ router
   // Cancel an Appointment
   .delete(appointmentController.cancelAppointment);
 
+
+  router.get('/doctor/appointments',appointmentController.getDoctorAppointments);
+  
 module.exports = router;
