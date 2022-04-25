@@ -10,7 +10,7 @@ exports.getReceps =(req,res)=>{
 
     const receps = Recep.find()
     .populate({path: "userRef clinic"})
-    .then(receps => res.json(receps))
+    .then(receps => res.json(receps).data)
     .catch(err => res.json({message: err}));
 }
 
@@ -31,7 +31,7 @@ exports.addRecep = (req,res)=>{
         lname: req.body.lname,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8),
-        image: req.file.filename,
+        image: req.file?.path,
         age: req.body.age,
         phoneNumber: req.body.phoneNumber,
         gender: req.body.gender,
