@@ -6,6 +6,9 @@ const router = express.Router();
 // All Invoices
 router.get("/", invoiceController.getAllInvoices);
 
+/***************one Invoice***************/
+//router.get("/:id", invoiceController.getInvoiceById);
+
 //New Invoice
 router.post(
   "/",
@@ -39,5 +42,8 @@ router
 
   // Get Specific Invoice with param
   .get(invoiceController.getInvoice);
+
+
+  
 
 module.exports = router;

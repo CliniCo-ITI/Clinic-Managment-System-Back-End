@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const ValidateToken = (req,res,next)=>{
     try{
+        console.log("Toooooooooken");
         const token = req.headers.authorization.split(' ')[1];
         const user = jwt.verify(token,jwt_secret);
         req.user = user;

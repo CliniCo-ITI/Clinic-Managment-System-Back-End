@@ -6,6 +6,8 @@ const appointmentController = require("../Controllers/appointmentController");
 // Get All Appointments
 router.get("/", appointmentController.getAllAppointments);
 
+// Gget Doctor Aappointments
+router.get("/recep/:id", appointmentController.getClinicDoctorsAppointments);
 // Add new Appointment
 router.post(
   "/",

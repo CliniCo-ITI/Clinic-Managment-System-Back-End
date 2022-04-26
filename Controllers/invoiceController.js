@@ -8,6 +8,23 @@ const getAllInvoices = async (req, res, next) => {
   res.json(invoices);
 };
 
+/***************Invoice By ID***************/
+
+exports.getInvoiceById = async (req, res, next)=>{
+
+  const {id} = req.params;
+  console.log(id);
+  try{
+      const inv = await Invoice.findById(id);
+      inv
+      
+      .then(data=>res.json(data))
+  }catch(error){
+      res.json({msg:error})
+  }
+  
+}
+
 //Get individual invoice informations
 const getInvoice = async (req, res, next) => {
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
@@ -64,8 +81,9 @@ const updateInvoice = async (req, res, next) => {
     next(error);
   } else {
     try {
-      if (req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
-        const updatedInvoice = await Invoice.findById(req.body.id);
+   
+      if (req.body._id.match(/^[0-9a-fA-F]{24}$/)) {
+        const updatedInvoice = await Invoice.findById(req.body._id);
        
         if(!updatedInvoice)
         {
@@ -85,6 +103,7 @@ const updateInvoice = async (req, res, next) => {
 
       }
     } catch (err) {
+      
       err.status = 500;
       next(err);
     }
