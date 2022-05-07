@@ -13,7 +13,7 @@ module.exports.signUp = (req, res) => {
     lname: req.body.lname,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8),
-    image: req.file.filename,
+    image: req.file?.path,
     age: req.body.age,
     phoneNumber: req.body.phoneNumber,
     gender: req.body.gender,
@@ -80,8 +80,9 @@ exports.signin = (req, res) => {
     //responding to client request with user profile success message and  access token .
     res.status(200).send({
       user: userDto(user),
-      message: "Login successfully",
-      accessToken: token,
+      // message: "Login successfully",
+      // accessToken: token,
+      token
     });
   });
 };

@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const cors = require('cors');
 
 const authRouter = require("./Routes/authRoute");
+const adminRouter = require("./Routes/adminRouter");
 const adminRecepRouter = require("./Routes/adminreceptionistRouter");
 const recepRouter = require("./Routes/receptionistRouter");
 const adminDoctorRouter = require('./Routes/admindoctorRouter');
@@ -36,8 +37,11 @@ app.use('/uploads',express.static('uploads'));
 app.use(authRouter);
 
 // Admin middlewares
+app.use('/admin/profile',adminRouter);
 app.use('/admin',adminDoctorRouter)
 app.use('/admin/receptionist',adminRecepRouter);
+app.use("/admin/clinics",clinic);
+app.use("/admin/medicines",medicine);
 
 // Receptionist middlewares 
 app.use(doctorRouter)
@@ -46,8 +50,8 @@ app.use('/receptionist',recepRouter);
 // Routes
 app.use("/invoices",require('./Routes/invoiceRoute'));
 app.use("/appointments",require('./Routes/appointmentRouter'));
-app.use("/medicines",medicine);
-app.use("/clinics",clinic);
+// app.use("/medicines",medicine);
+// app.use("/clinics",clinic);
 app.use("/prescriptions",prescription);
 
 // Check database connection
