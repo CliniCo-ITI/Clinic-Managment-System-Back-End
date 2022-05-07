@@ -5,8 +5,6 @@ const {ValidateToken} = require('./../middleware/validation/validateToken');
 const { param } = require("express/lib/request");
 
 const controller = require("../Controllers/medicineController");
-const { IsAdmin } = require("../middleware/validation/isAdmin");
-const { ValidateToken } = require("../middleware/validation/validateToken");
 
 const router = express.Router();
 
