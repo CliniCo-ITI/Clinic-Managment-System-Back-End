@@ -6,6 +6,8 @@ const appointmentController = require("../Controllers/appointmentController");
 // Get All Appointments
 router.get("/", appointmentController.getAllAppointments);
 
+// Gget Doctor Aappointments
+router.get("/recep/:id", appointmentController.getClinicDoctorsAppointments);
 // Add new Appointment
 router.post(
   "/",
@@ -31,7 +33,6 @@ router.put(
   ],
   appointmentController.updateAppointment
 );
-module.exports = router;
 
 router
   .route("/:id")
@@ -40,4 +41,7 @@ router
   // Cancel an Appointment
   .delete(appointmentController.cancelAppointment);
 
+
+  router.get('/doctor/appointments',appointmentController.getDoctorAppointments);
+  
 module.exports = router;

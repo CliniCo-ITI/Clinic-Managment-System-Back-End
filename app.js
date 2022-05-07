@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const bodyParser = require("body-parser");
 const cors = require('cors');
+const morgan = require("morgan");
 
 const authRouter = require("./Routes/authRoute");
 const adminRouter = require("./Routes/adminRouter");
@@ -23,6 +24,7 @@ DBConnect();
 //Cors middleware to enable requests 
 app.use(cors())
 
+app.use(morgan());
 //middleware for json 
 app.use(bodyParser.json());
 
@@ -50,8 +52,10 @@ app.use('/receptionist',recepRouter);
 // Routes
 app.use("/invoices",require('./Routes/invoiceRoute'));
 app.use("/appointments",require('./Routes/appointmentRouter'));
+
 // app.use("/medicines",medicine);
 // app.use("/clinics",clinic);
+
 app.use("/prescriptions",prescription);
 
 // Check database connection

@@ -63,7 +63,6 @@ exports.signin = (req, res) => {
         message: "Invalid Email or password.",
       });
     }
-
     //comparing passwords
     let passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
     // checking if password was valid and send response accordingly

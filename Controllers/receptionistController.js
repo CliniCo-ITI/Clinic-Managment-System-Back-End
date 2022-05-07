@@ -6,11 +6,16 @@ const bcrypt = require("bcrypt");
 
 exports.getRecepById = async (req,res)=>{
     try{
-        const recep = await Recep.findById(req.params.recepId);
+        console.log(req.params.recepId);
+
+        const recep = await Recep.findOne({userRef:req.params.recepId});
+
         recep
         .populate({path: "userRef clinic"})
         .then(recepData => res.json(recepData))
+        
     }catch(err){
+        
         res.json({msg: err});
     }
 }

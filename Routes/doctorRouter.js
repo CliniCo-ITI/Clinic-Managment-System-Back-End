@@ -20,7 +20,7 @@ router.get("/doctor/:id",ValidateToken,IsDoctor,getDoctorById);
         name: 'ppl', maxCount: 1
     }]),updateDoctor);
 
-
+// router.get('/doctor')
 // router.delete("/doctor/:id",ValidateToken,IsAdmin,deleteDoctor);
 // router.put("/doctor/:id",ValidateToken,IsAdmin,updateDoctor);
 module.exports=router;

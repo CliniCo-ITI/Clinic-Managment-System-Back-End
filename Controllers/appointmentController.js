@@ -77,6 +77,7 @@ const changeSeen = async (req, res, next) => {
 // List appointments for all doctors in the same clinic
 const getClinicDoctorsAppointments = async (req, res, next) => {
   try {
+    
     if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
       const clinicDoctorsAppointment = await Receptionist.findById(
         req.params.id
@@ -86,7 +87,7 @@ const getClinicDoctorsAppointments = async (req, res, next) => {
           clinic: getClinicDoctorsAppointments.clinic,
         }).populate({ path: "doctor patient" });
         if (clinicDoctorsAppointment != null) {
-          res.status(100).json(clinicDoctorsAppointment);
+          res.json(clinicDoctorsAppointment);
         }
       }
     }

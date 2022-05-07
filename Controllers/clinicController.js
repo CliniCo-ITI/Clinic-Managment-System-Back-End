@@ -73,7 +73,7 @@ exports.updateClinic = async (req, res, next) => {
             address,
             startTime,
             endTime,
-            // medicines
+            medicines
         },
         {
             new:true
@@ -102,29 +102,42 @@ exports.updateClinic = async (req, res, next) => {
 
 /***************Delete Clinic***************/
 
+// exports.deleteClinic = async (req, res, next) => {
+//     const {id} = req.params
+//     console.log(id);
+//     // try{
+//     //     await clinic.findByIdAndDelete(id);
+//     //     res.status(200).json({msg: "clinic Deleted Successfully"})
+//     // }
+//     // catch(error){
+//     //     res.json({msg:error})
+//     // }  
+
+//     const obj = await clinic.findOne(id).exec()
+//     if (obj) {
+
+//         await clinic.deleteOne(id)
+
+//         res.status(201).json({ message: "deleted" });
+//     }
+//     else {
+
+//         return res.status(422).json({ message: "Not Found" })
+
+//     }
+// }
+
+
 exports.deleteClinic = async (req, res, next) => {
     const {id} = req.params
     console.log(id);
-    // try{
-    //     await clinic.findByIdAndDelete(id);
-    //     res.status(200).json({msg: "clinic Deleted Successfully"})
-    // }
-    // catch(error){
-    //     res.json({msg:error})
-    // }  
-
-    const obj = await clinic.findOne(id).exec()
-    if (obj) {
-
-        await clinic.deleteOne(id)
-
-        res.status(201).json({ message: "deleted" });
+    try{
+        await clinic.findByIdAndDelete(id);
+        res.status(200).json({msg: "clinic Deleted Successfully"})
     }
-    else {
+    catch(error){
+        res.json({msg:error})
+    }  
 
-        return res.status(422).json({ message: "Not Found" })
-
-    }
+ 
 }
-
-
